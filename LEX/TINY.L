@@ -26,6 +26,7 @@ whitespace  [ \t]+
 "then"          {return THEN;}
 "else"          {return ELSE;}
 "end"           {return END;}
+"while"         {return WHILE;}
 "repeat"        {return REPEAT;}
 "until"         {return UNTIL;}
 "read"          {return READ;}

@@ -54,6 +54,25 @@ static void genStmt( TreeNode * tree)
          if (TraceCode)  emitComment("<- if") ;
          break; /* if_k */
 
+      //Caso de while
+      case WhileK :
+         if (TraceCode) emitComment("-> while start") ;
+         p1 = tree->child[0];
+         p2 = tree->child[1];
+         savedLoc1 = emitSkip(0);
+         if (TraceCode) emitComment("while : test expression start");
+         cGen(p1);
+         if (TraceCode) emitComment("while : test expression end");
+         savedLoc2 = emitSkip(1);
+         if (TraceCode) emitComment("while : body start");
+         cGen(p2);
+         if (TraceCode) emitComment("while : body end");
+         emitRM("LDC", pc, savedLoc1, 0, "unconditional jump");
+         currentLoc = emitSkip(0);
+         emitBackup(savedLoc2);
+         emitRM_Abs("JEQ", ac, currentLoc, "while : false");
+         emitRestore();
+         break;
       case RepeatK:
          if (TraceCode) emitComment("-> repeat") ;
          p1 = tree->child[0] ;

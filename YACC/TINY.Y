@@ -59,6 +59,14 @@ if_stmt     : IF exp THEN stmt_seq END
                    $$->child[2] = $6;
                  }
             ;
+
+while_stmt  : WHILE exp THEN stmt_seq END
+                 { $$ = newStmtNode(WhileK);
+                   $$->child[0] = $2;
+                   $$->child[1] = $4;
+                 }
+            ;
+
 repeat_stmt : REPEAT stmt_seq UNTIL exp
                  { $$ = newStmtNode(RepeatK);
                    $$->child[0] = $2;

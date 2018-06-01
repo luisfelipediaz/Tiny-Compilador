@@ -141,6 +141,11 @@ static void checkNode(TreeNode * t)
           if (t->child[1]->type == Integer)
             typeError(t->child[1],"repeat test is not Boolean");
           break;
+        //Caso en el que la sentencia es while y sus respectivas validacions
+        case WhileK:
+          if (t->child[0]->type == Integer)
+            typeError(t->child[0],"While test is not Boolean");
+          break;
         default:
           break;
       }
